@@ -1,3 +1,7 @@
+from __future__ import annotations
+
+__all__ = ("Colors")
+
 class Colors:
     """
     A class containing all the colors used in Moai.

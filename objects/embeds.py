@@ -1,3 +1,7 @@
+from __future__ import annotations
+
+__all__ = ("Embeds")
+
 import discord
 from moai.constants import Colors
 class Embeds():
