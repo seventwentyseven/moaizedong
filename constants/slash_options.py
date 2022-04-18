@@ -41,3 +41,60 @@ class CommandOptions:
             ]
         ),
     ]
+
+    SCORES = [
+        create_option(
+            name = "user",
+            description = "Select user. Not required if you're connected to discord.",
+            option_type = 3,
+            required = False,
+        ),
+
+        create_option(
+            name = "mode",
+            description = "Select mode. Not required if you set your default mode in your account's settings.",
+            option_type = 3,
+            required = False,
+            choices = [
+                create_choice(
+                    name = "Standard",
+                    value = "0"
+                ),
+
+                create_choice(
+                    name = "Taiko",
+                    value = "1"
+                ),
+
+                create_choice(
+                    name = "Catch", 
+                    value = "2"
+                ),
+
+                create_choice(
+                    name = "Mania", 
+                    value = "3"
+                ),
+
+                create_choice(
+                    name = "Standard + RX", 
+                    value = "4"
+                ),
+
+                create_choice(
+                    name = "Taiko + RX", 
+                    value = "5"
+                ),
+
+                create_choice(
+                    name = "Catch + RX", 
+                    value = "6"
+                ),
+
+                create_choice(
+                    name = "Standard + AP", 
+                    value = "8"
+                ),
+            ]
+        ),
+    ]
