@@ -90,9 +90,9 @@ class Recent(commands.Cog):
             score['total_length'] = str(datetime.timedelta(seconds=score['total_length']))
 
         # Max Combo
-        maxc = f"{score['max_combo']}x/**{score['map_max_combo']}x**" if mode!=3 else f"{score['max_combo']}x**"
+        maxc = f"{score['max_combo']}x/**{score['map_max_combo']}x**" if mode!=3 else f"{score['max_combo']}x"
         # Mania ratio
-        ratio = f" ▸ **Ratio:** {round(score['nkatu']/score['n300'], 2)} **: 1**" if mode==3 else ""
+        ratio = f" ▸ **Ratio:** {round(score['n300']/score['nkatu'], 2)} **: 1**" if mode==3 else ""
 
         # Mode specific stuff
         if int(mode) in (0,4,8):
@@ -127,7 +127,7 @@ class Recent(commands.Cog):
             value=""
             f"▸ {variables.grade2emoji[score['grade']]} ▸ **Max Combo:** {maxc} ▸ "
             f"**PP:** {round(score['pp'], 2):,} ▸ **Acc:** {round(score['acc']):,}%\n"
-            f"▸ **Score** {score['score']:,} ▸ {judges} {ratio}\n"
+            f"▸ **Score:** {score['score']:,} ▸ {judges} {ratio}\n"
             f"▸ **Date Played:** <t:{int(datetime.datetime.timestamp(score['play_time']))}:R>",
             inline=False
         )
