@@ -1,5 +1,5 @@
 from app.constants.gamemodes import GameMode
-
+from moai.constants.channels import Emojis
 mode2strfull = {
     0: "Standard",
     1: "Taiko",
@@ -43,4 +43,18 @@ statuses = {
     11: 'Idle: 🏢 In multiplayer lobby',
     12: 'In Multiplayer: Playing 🌍 {} 🎶',
     13: 'Idle: 🔍 Searching for beatmaps in osu!direct'
+}
+
+grade2emoji = {
+    "XH": Emojis.XH,
+    "SSH": Emojis.XH,
+    "SS": Emojis.X,
+    "X": Emojis.X,
+    "SH": Emojis.SH,
+    "S": Emojis.S,
+    "A": Emojis.A,
+    "B": Emojis.B,
+    "C": Emojis.C,
+    "D": Emojis.D,
+    "F": Emojis.F,
 }

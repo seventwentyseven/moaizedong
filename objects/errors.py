@@ -57,6 +57,30 @@ class Errors:
         )
         return embed
 
+    def noScores(mode:str):
+        embed = discord.Embed(
+            title="Error!",
+            description=f"No scores found in osu!{mode}.",
+            color=Colors.RED
+        )
+        embed.set_footer(
+            text=f"{SERVER_NAME_L}.xyz",
+            icon_url=ICON_LINK
+        )
+        return embed
+
+    def number_range(min:int, max:int):
+        embed = discord.Embed(
+            title="Error!",
+            description=f"Number must be between {min} and {max}.",
+            color=Colors.RED
+        )
+        embed.set_footer(
+            text=f"{SERVER_NAME_L}.xyz",
+            icon_url=ICON_LINK
+        )
+        return embed
+
 
 
 

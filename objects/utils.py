@@ -106,4 +106,18 @@ async def formatStatus(username:str, last_seen:int):
             text.format(player.status.info_text, mods)
         )
 
+def formatJudgements(mode:int, n300:int, n100:int, n50:int, nmiss:int, nkatu:int, ngeki:int):
+    # Std 300/100/50/miss
+    if mode in (0,4,8):
+        o = f"[{n300}/{n100}/{n50}/{nmiss}]"
+    # Mania all
+    elif mode == 3:
+        o = f"[{nkatu}/{n300}/{ngeki}/{n100}/{n50}/{nmiss}/]"
+    # Taiko 300/50/miss
+    elif mode in (1,5):
+        o = f"[{n300}/{n50}/{nmiss}]"
+    # Ctb n300/n100/nkatu/nmiss
+    elif mode in (2,6):
+        o = f"[{n300}/{n100}/{nkatu}/{nmiss}]"
 
+    return o
