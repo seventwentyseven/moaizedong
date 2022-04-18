@@ -102,12 +102,6 @@ class Profile(commands.Cog):
                 f"{Emojis.A} `{stats['a_count']:,}`",
                 inline=False
             )
-            embed.set_footer(
-                text=f"def750 is x on {config.SERVER_NAME_L}.xyz"
-            )
-            embed.set_thumbnail(
-                url=f"https://a.{settings.DOMAIN}/{user['id']}"
-            )
         else:
             # Get variables
             priv_list = await utils.priv2str(user['priv'], separator=' ▸ ')
@@ -149,12 +143,16 @@ class Profile(commands.Cog):
                 value=priv_list,
                 inline=False
             )
-            embed.set_footer(
-                text=f"def750 is x on {config.SERVER_NAME_L}.xyz"
-            )
-            embed.set_thumbnail(
-                url=f"https://a.{settings.DOMAIN}/{user['id']}"
-            )
+
+        #* Get user status
+        print(await utils.statusformated(player))
+
+        embed.set_footer(
+            text=f"def750 is x on {config.SERVER_NAME_L}.xyz"
+        )
+        embed.set_thumbnail(
+            url=f"https://a.{settings.DOMAIN}/{user['id']}"
+        )
 
         await ctx.send(embed=embed)
 

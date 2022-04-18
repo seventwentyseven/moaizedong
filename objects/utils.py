@@ -2,10 +2,14 @@ from __future__ import annotations
 
 import discord
 from discord.ext import commands
-from app.constants.privileges import Privileges
 
 import app.state.services
+from app import settings
+from app.constants.privileges import Privileges
+from app.objects.player import Player
+
 from moai.constants.colors import Colors
+from moai.constants import variables
 from moai.objects.errors import Errors
 
 async def get_user(ctx: commands.Context, user:str=None):
@@ -69,3 +73,7 @@ async def priv2str(priv:int, formatter:str="", separator:str=" "):
         out += f"{f}{el}{f}{s}"
 
     return out[:-len(s)]
+
+async def statusformated(status: Player.status):
+    """Format player status."""
+    print(status)
