@@ -32,14 +32,11 @@ class Profile(commands.Cog):
     async def _profile(self, ctx: SlashContext, user:str=None, mode:str=None, size:str="basic"):
         """Get user profile in specified mode."""
 
-        # Get author Player object
+        #* Get author Privileges
         author_priv = await app.state.services.database.fetch_val(
             "SELECT priv FROM users WHERE discord_id = :id",
             {"id": ctx.author.id}
         )
-        # Check if author is restricted
-        if author_priv and not author_priv & 1:
-            return await ctx.send(embed=await Errors.privileges())
 
         #* Get user
         user = await utils.get_user(ctx, user)
@@ -51,10 +48,10 @@ class Profile(commands.Cog):
             user = user['user']
 
         #* Privilege checks
-        if not user['priv'] & 1:
-            if author_priv < 8192:
+        if not user['priv'] & 1: # Target restricted?
+            if author_priv < 8192: # Must be an admin to check restricted
                 return await ctx.send(embed=await Errors.privileges())
-            elif ctx.channel_id != Channels.ADMIN_CHAT:
+            elif ctx.channel_id != Channels.ADMIN_CHAT: # Channel must be admin chat
                 return await ctx.send(embed=await Errors.AdminChat_only())
 
         #* If mode not specified, assign user's preferred
@@ -110,10 +107,6 @@ class Profile(commands.Cog):
             if user['id'] in config.OWNERS_OSU:
                 priv_list = f"Owner ▸ {priv_list}"
 
-            user['creation_time'] = datetime.datetime.fromtimestamp(
-                user['creation_time']
-            ).strftime('%Y-%m-%d %H:%M:%S')
-
             # Add stats
             embed.add_field(
                 name="Stats",
@@ -122,20 +115,20 @@ class Profile(commands.Cog):
                 f"▸ **PP:** {stats['pp']:,}pp ▸ **Acc:** {round(stats['acc'], 2)}%\n"
                 f"▸ **Playcount:** {stats['plays']:,} ({stats['playtime']:,} hours)\n"
                 f"▸ **Total Score:** {stats['tscore']:,} ▸ **Ranked Score:** {stats['rscore']:,}\n"
-                f"▸ **Max Combo:** {stats['max_combo']:,}\n"
-                f"▸ **Total Hits:** {stats['total_hits']:,}\n"
+                f"▸ **Max Combo:** {stats['max_combo']:,}x\n"
+                f"▸ **Total Clicks:** {stats['total_hits']:,}x\n"
                 f"▸ **Replay Views:** {stats['replay_views']:,}\n"
-                f"▸ **Ranks:** {Emojis.XH} `{stats['xh_count']:,}`"
-                f"{Emojis.X} `{stats['x_count']:,}`"
-                f"{Emojis.SH} `{stats['sh_count']:,}`"
-                f"{Emojis.S} `{stats['s_count']:,}`"
-                f"{Emojis.A} `{stats['a_count']:,}`",
+                f"▸ **Ranks:** {Emojis.XH}`{stats['xh_count']:,}`"
+                f"{Emojis.X}`{stats['x_count']:,}`"
+                f"{Emojis.SH}`{stats['sh_count']:,}`"
+                f"{Emojis.S}`{stats['s_count']:,}`"
+                f"{Emojis.A}`{stats['a_count']:,}`",
                 inline=False
             )
             embed.add_field(
                 name="User Info",
                 value=""
-                f"▸ **Joined: ** {user['creation_time']}\n"
+                f"▸ **Joined: ** <t:{user['creation_time']}:R>\n"
                 f"▸ **User ID**: {user['id']}",
                 inline=False
             )
