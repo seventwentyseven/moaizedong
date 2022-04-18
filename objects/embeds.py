@@ -1,9 +1,10 @@
 from __future__ import annotations
 
+import discord
+from moai.constants.colors import Colors
+
 __all__ = ("Embeds")
 
-import discord
-from moai.constants import Colors
 class Embeds():
     def __init__(self, bot):
         self.bot = bot

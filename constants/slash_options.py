@@ -1,9 +1,9 @@
 from __future__ import annotations
 
+from discord_slash.utils.manage_commands import create_choice, create_option
+
 __all__ = ("CommandOptions")
 
-
-from discord_slash.utils.manage_commands import create_choice, create_option
 class CommandOptions:
     """Class for managing command options."""
 
