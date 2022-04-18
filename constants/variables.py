@@ -31,16 +31,16 @@ mode2obj = {
 statuses = {
     0: 'Idle: 🔍 Song Select',
     1: '🌙 AFK',
-    2: 'Playing: 🎶 {info_text} +MODS',
-    3: 'Editing: 🔨 {info_text}',
-    4: 'Modding: 🔨 {info_text}',
+    2: 'Playing: 🎶 {}{}',
+    3: 'Editing: 🔨 {}',
+    4: 'Modding: 🔨 {}',
     5: 'In Multiplayer: Song Select',
-    6: 'Watching: 👓 {info_text}',
+    6: 'Watching: 👓 {}',
     # 7 not used
-    8: 'Testing: 🎾 {info_text}',
-    9: 'Submitting: 🧼 {info_text}',
+    8: 'Testing: 🎾 {}',
+    9: 'Submitting: 🧼 {}',
     # 10 paused, never used
     11: 'Idle: 🏢 In multiplayer lobby',
-    12: 'In Multiplayer: Playing 🌍 {info_text} 🎶',
+    12: 'In Multiplayer: Playing 🌍 {} 🎶',
     13: 'Idle: 🔍 Searching for beatmaps in osu!direct'
 }

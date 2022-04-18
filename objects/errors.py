@@ -27,7 +27,7 @@ class Errors:
         if self_exec:
             embed = discord.Embed(
                 title="Error!",
-                description=f"You don't have a {SERVER_NAME_S} account linked to your discord account yet."
+                description=f"You don't have a {SERVER_NAME_S} account linked to your discord account yet.\n"
                              "You can do that on our website in settings page, or just use your name in command.",
                 color=Colors.RED
             )

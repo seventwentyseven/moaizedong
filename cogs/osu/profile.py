@@ -122,6 +122,7 @@ class Profile(commands.Cog):
                 f"▸ **PP:** {stats['pp']:,}pp ▸ **Acc:** {round(stats['acc'], 2)}%\n"
                 f"▸ **Playcount:** {stats['plays']:,} ({stats['playtime']:,} hours)\n"
                 f"▸ **Total Score:** {stats['tscore']:,} ▸ **Ranked Score:** {stats['rscore']:,}\n"
+                f"▸ **Max Combo:** {stats['max_combo']:,}\n"
                 f"▸ **Total Hits:** {stats['total_hits']:,}\n"
                 f"▸ **Replay Views:** {stats['replay_views']:,}\n"
                 f"▸ **Ranks:** {Emojis.XH} `{stats['xh_count']:,}`"
@@ -144,17 +145,15 @@ class Profile(commands.Cog):
                 inline=False
             )
 
-        #* Get user status
-        print(await utils.statusformated(player))
-
         embed.set_footer(
-            text=f"def750 is x on {config.SERVER_NAME_L}.xyz"
+            text=await utils.formatStatus(user['name'], user['latest_activity']),
+            icon_url=config.ICON_LINK
         )
         embed.set_thumbnail(
             url=f"https://a.{settings.DOMAIN}/{user['id']}"
         )
 
-        await ctx.send(embed=embed)
+        return await ctx.send(embed=embed)
 
     @commands.command(name="test")
     async def test(self, ctx: commands.Context, priv:int=3):
