@@ -12,7 +12,7 @@ class Errors:
     """Class representing errors of the bot."""
 
     # Missing privileges error
-    async def privileges():
+    def privileges() -> discord.Embed:
         embed =  discord.Embed(
             title="Error!",
             description="You don't have permissions to use this command, maybe your account isn't linked?.",
@@ -23,7 +23,7 @@ class Errors:
             icon_url=ICON_LINK
         )
 
-    async def user_not_found(self_exec=False):
+    def user_not_found(self_exec=False) -> discord.Embed:
         if self_exec:
             embed = discord.Embed(
                 title="Error!",
@@ -45,7 +45,7 @@ class Errors:
         )
         return embed
 
-    async def AdminChat_only():
+    def AdminChat_only() -> discord.Embed:
         embed = discord.Embed(
             title="Error!",
             description=f"Try again in <#{Channels.ADMIN_CHAT}>.",
@@ -69,7 +69,7 @@ class Errors:
         )
         return embed
 
-    def number_range(min:int, max:int):
+    def number_range(min:int, max:int) -> discord.Embed:
         embed = discord.Embed(
             title="Error!",
             description=f"Number must be between {min} and {max}.",
