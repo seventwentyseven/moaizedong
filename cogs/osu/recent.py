@@ -81,38 +81,53 @@ class Recent(commands.Cog):
         else:
             return await ctx.send(embed=Errors.noScores(variables.mode2strfull[int(mode)]))
 
-        #* Reassign variables
-        # Total length
+        #! Reassign variables
+
+        #* Defaults
+        # Max Combo
+        max_combo = f"{score['max_combo']}x/**{score['map_max_combo']}x**"
+        # Ratio (Osu mania only)
+        ratio = ""
+
+        #* Total length
         if score['total_length'] < 3600:
-            score['total_length'] = str(datetime.timedelta(seconds=score['total_length']))
-            score['total_length'] = score['total_length'][3:]
+            score['total_length'] = str(datetime.timedelta(seconds=score['total_length']))[3:]
         else:
             score['total_length'] = str(datetime.timedelta(seconds=score['total_length']))
 
-        # Max Combo
-        maxc = f"{score['max_combo']}x/**{score['map_max_combo']}x**" if mode!=3 else f"{score['max_combo']}x"
-        # Mania ratio
-        ratio = f" ▸ **Ratio:** {round(score['n300']/score['nkatu'], 2)} **: 1**" if mode==3 else ""
 
-        # Mode specific stuff
+        #* Mode specific text generation
+        # Std
         if int(mode) in (0,4,8):
-            judges = f"[{score['n300']}/{score['n100']}/{score['n50']}/{score['nmiss']}]"
-            map_stats = f"▸ **HP:** {score['hp']} ▸ **AR:** {score['ar']} ▸ **CS:** {score['cs']} ▸ **OD:** {score['od']}"
-        elif int(mode) == 3:
-            judges = f"[{score['nkatu']}/{score['n300']}/{score['ngeki']}/{score['n100']}/{score['n50']}/{score['nmiss']}/]"
-            map_stats  = f"▸ **Keys:** {int(score['cs'])} ▸ **HP:** {score['hp']} ▸ **OD:** {score['od']}"
-        elif int(mode) in (1,5):
-            judges = f"[{score['n300']}/{score['n50']}/{score['nmiss']}]"
-            map_stats  = f"▸ **HP:** {score['hp']} ▸ **OD:** {score['od']}"
-        elif int(mode) in (2,6):
-            judges = f"[{score['n300']}/{score['n100']}/{score['nkatu']}/{score['nmiss']}]"
+            judgements = f"[{score['n300']}/{score['n100']}/{score['n50']}/{score['nmiss']}]"
             map_stats = f"▸ **HP:** {score['hp']} ▸ **AR:** {score['ar']} ▸ **CS:** {score['cs']} ▸ **OD:** {score['od']}"
 
-        #* Generate embed
+        # Mania
+        elif int(mode) == 3:
+            judgements = f"[{score['nkatu']}/{score['n300']}/{score['ngeki']}/{score['n100']}/{score['n50']}/{score['nmiss']}]"
+            map_stats  = f"▸ **Keys:** {int(score['cs'])} ▸ **HP:** {score['hp']} ▸ **OD:** {score['od']}"
+            max_combo = f"{score['max_combo']}x"
+
+            try:
+                ratio = f" ▸ **Ratio:** {round(score['n300']/score['nkatu'], 2)} **: 1**"
+            except ZeroDivisionError:
+                ratio = f" ▸ **Ratio:** 0 **: 1**"
+        # Taiko
+        elif int(mode) in (1,5):
+            judgements = f"[{score['n300']}/{score['n50']}/{score['nmiss']}]"
+            map_stats  = f"▸ **HP:** {score['hp']} ▸ **OD:** {score['od']}"
+
+        # Catch
+        elif int(mode) in (2,6):
+            judgements = f"[{score['n300']}/{score['n100']}/{score['nkatu']}/{score['nmiss']}]"
+            map_stats = f"▸ **HP:** {score['hp']} ▸ **AR:** {score['ar']} ▸ **CS:** {score['cs']} ▸ **OD:** {score['od']}"
+
+
+        #! Generate embed
         embed = discord.Embed(
             title=f"In osu!{variables.mode2strfull[int(mode)]}",
             description=f"[{score['artist']} - {score['title']} [{score['version']}] by {score['creator']}]"
-                        f"(https://{settings.DOMAIN}/b/{score['mapid']})",
+                        f"(https://{settings.DOMAIN}/b/{score['mapid']}) **{utils.mods2str(score['mods'])}**",
             color=ctx.author.color,
         )
         embed.set_author(
@@ -125,9 +140,9 @@ class Recent(commands.Cog):
         embed.add_field(
             name="Score Info",
             value=""
-            f"▸ {variables.grade2emoji[score['grade']]} ▸ **Max Combo:** {maxc} ▸ "
+            f"▸ {variables.grade2emoji[score['grade']]} ▸ **Max Combo:** {max_combo} ▸ "
             f"**PP:** {round(score['pp'], 2):,} ▸ **Acc:** {round(score['acc']):,}%\n"
-            f"▸ **Score:** {score['score']:,} ▸ {judges} {ratio}\n"
+            f"▸ **Score:** {score['score']:,} ▸ {judgements} {ratio}\n"
             f"▸ **Date Played:** <t:{int(datetime.datetime.timestamp(score['play_time']))}:R>",
             inline=False
         )
