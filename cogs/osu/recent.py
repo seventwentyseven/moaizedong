@@ -127,7 +127,7 @@ class Recent(commands.Cog):
         embed = discord.Embed(
             title=f"In osu!{variables.mode2strfull[int(mode)]}",
             description=f"[{score['artist']} - {score['title']} [{score['version']}] by {score['creator']}]"
-                        f"(https://{settings.DOMAIN}/b/{score['mapid']}) **{utils.mods2str(score['mods'])}**",
+                        f"(https://{settings.DOMAIN}/b/{score['mapid']}) {utils.mods2str(score['mods'])}",
             color=ctx.author.color,
         )
         embed.set_author(
