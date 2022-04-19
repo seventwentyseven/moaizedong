@@ -148,8 +148,5 @@ class Profile(commands.Cog):
 
         return await ctx.send(embed=embed)
 
-    @commands.command(name="test")
-    async def test(self, ctx: commands.Context, priv:int=3):
-        await ctx.send(await utils.priv2str(priv))
 def setup(bot: commands.Bot):
     bot.add_cog(Profile(bot))
