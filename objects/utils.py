@@ -19,7 +19,7 @@ from moai.constants.colors import Colors
 from moai.constants import variables
 from moai.objects.errors import Errors
 
-async def get_user(ctx: commands.Context, user:str=None):
+async def get_user(ctx: commands.Context, user:str=None) -> dict:
     # Define default self_exec
     self_exec = False
 
@@ -67,7 +67,7 @@ async def get_user(ctx: commands.Context, user:str=None):
                 self_exec = True
             return {"user": user, "self_exec": self_exec}
 
-async def priv2str(priv:int, formatter:str="", separator:str=" "):
+async def priv2str(priv:int, formatter:str="", separator:str=" ") -> str:
     """Convert privilege integer to string."""
 
     f = formatter
@@ -81,7 +81,7 @@ async def priv2str(priv:int, formatter:str="", separator:str=" "):
 
     return out[:-len(s)]
 
-async def formatStatus(username:str, last_seen:int):
+async def formatStatus(username:str, last_seen:int) -> str:
     """Format player status."""
 
     #* Check if player is online
@@ -106,7 +106,7 @@ async def formatStatus(username:str, last_seen:int):
             text.format(player.status.info_text, mods)
         )
 
-def formatJudgements(mode:int, n300:int, n100:int, n50:int, nmiss:int, nkatu:int, ngeki:int):
+def formatJudgements(mode:int, n300:int, n100:int, n50:int, nmiss:int, nkatu:int, ngeki:int) -> str:
     # Std 300/100/50/miss
     if mode in (0,4,8):
         o = f"[{n300}/{n100}/{n50}/{nmiss}]"
@@ -121,3 +121,18 @@ def formatJudgements(mode:int, n300:int, n100:int, n50:int, nmiss:int, nkatu:int
         o = f"[{n300}/{n100}/{nkatu}/{nmiss}]"
 
     return o
+
+def mods2str(mods:int=0, plus:bool=True) -> str:
+    """Convert mods integer to string."""
+
+    # Nomod
+    if mods == 0:
+        return ""
+
+    out = f"+{Mods(mods)!r}"
+
+    # Delete DT if NC
+    if mods & 512:
+        out = out.replace("DT", "")
+
+    return out if plus else out[1:]
