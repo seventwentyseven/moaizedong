@@ -16,7 +16,7 @@ class CommandOptions:
         ),
         create_option(
             name="mode",
-            description="Select mode.",
+            description="Select mode. (Default: User's preffered)",
             option_type=3,
             required=False,
             choices=[
@@ -32,7 +32,7 @@ class CommandOptions:
         ),
         create_option(
             name="size",
-            description="Do you want to see all info or only basic",
+            description="Do you want to see all info or only basic (Default: Basic)",
             option_type=3,
             required=False,
             choices=[
@@ -51,7 +51,7 @@ class CommandOptions:
         ),
         create_option(
             name = "mode",
-            description = "Select mode.",
+            description = "Select mode. (Default: User's preffered)",
             option_type = 3,
             required = False,
             choices=[
@@ -70,5 +70,52 @@ class CommandOptions:
             description = "Enter score number 1-10 (Default: 1)",
             option_type = 3,
             required = False,
+        ),
+    ]
+
+    BEST = [
+        create_option(
+            name = "user",
+            description = "Select user. Not required if you linked your osu account.",
+            option_type = 3,
+            required = False,
+        ),
+        create_option(
+            name = "mode",
+            description = "Select mode. (Default: User's preffered)",
+            option_type = 3,
+            required = False,
+            choices=[
+                create_choice(name="Standard", value="0"),
+                create_choice(name="Taiko", value="1"),
+                create_choice(name="Catch", value="2"),
+                create_choice(name="Mania", value="3"),
+                create_choice(name="Standard + RX", value="4"),
+                create_choice(name="Taiko + RX", value="5"),
+                create_choice(name="Catch + RX", value="6"),
+                create_choice(name="Standard + AP", value="8"),
+            ]
+        ),
+        create_option(
+            name = "page",
+            description = "Enter page number (Default: 1)",
+            option_type = 3,
+            required = False,
+        ),
+        create_option(
+            name = "over",
+            description = "Displays number of scores over x pp",
+            option_type = 3,
+            required = False,
+        ),
+        create_option(
+            name="size",
+            description="Do you want to see all info or only basic (Default: Basic)",
+            option_type=3,
+            required=False,
+            choices=[
+                create_choice(name="Basic", value="basic"),
+                create_choice(name="Full", value="full"),
+            ]
         ),
     ]
