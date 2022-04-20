@@ -81,6 +81,18 @@ class Errors:
         )
         return embed
 
+    def not_int(arg_name:str) -> discord.Embed:
+        embed = discord.Embed(
+            title="Error!",
+            description=f"`{arg_name}` argument must be an integer.",
+            color=Colors.RED
+        )
+        embed.set_footer(
+            text=f"{SERVER_NAME_L}.xyz",
+            icon_url=ICON_LINK
+        )
+        return embed
+
 
 
 
