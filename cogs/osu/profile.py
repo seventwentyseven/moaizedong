@@ -50,9 +50,9 @@ class Profile(commands.Cog):
         #* Privilege checks
         if not user['priv'] & 1: # Target restricted?
             if author_priv < 8192: # Must be an admin to check restricted
-                return await ctx.send(embed=await Errors.privileges())
+                return await ctx.send(embed=Errors.privileges())
             elif ctx.channel_id != Channels.ADMIN_CHAT: # Channel must be admin chat
-                return await ctx.send(embed=await Errors.AdminChat_only())
+                return await ctx.send(embed=Errors.AdminChat_only())
 
         #* If mode not specified, assign user's preferred
         if mode is None:
