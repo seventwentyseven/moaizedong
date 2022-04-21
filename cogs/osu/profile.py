@@ -101,7 +101,7 @@ class Profile(commands.Cog):
             )
         else:
             # Get variables
-            priv_list = await utils.priv2str(user['priv'], separator=' ▸ ')
+            priv_list = await utils.priv2str(priv=user['priv'], _sep=' ▸ ')
             if not user['priv'] & 1:
                 priv_list = f"**RESTRICTED** ▸ {priv_list}"
             if user['id'] in config.OWNERS_OSU:

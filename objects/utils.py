@@ -67,7 +67,7 @@ async def get_user(ctx: commands.Context, user:str=None) -> dict:
                 self_exec = True
             return {"user": user, "self_exec": self_exec}
 
-async def priv2str(priv:int, format:str="", sep:str=" ") -> str:
+async def priv2str(priv:int, _format:str="", _sep:str=" ") -> str:
     """Convert privilege integer to string."""
 
     out = ""
@@ -75,9 +75,9 @@ async def priv2str(priv:int, format:str="", sep:str=" ") -> str:
         el.name.capitalize() for el in Privileges if priv & el and bin(el).count("1") == 1
     ][::-1]
     for el in priv_list:
-        out += f"{format}{el}{format}{sep}"
+        out += f"{_format}{el}{_format}{_sep}"
 
-    return out[:-len(sep)]
+    return out[:-len(_sep)]
 
 async def formatStatus(username:str, last_seen:int) -> str:
     """Format player status."""
