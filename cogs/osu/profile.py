@@ -80,7 +80,7 @@ class Profile(commands.Cog):
         embed.set_author(
             name=f"{user['name']}'s profile",
             icon_url=f"https://{settings.DOMAIN}/static/images/flags/{user['country'].upper()}.png",
-            url=f"https://{settings.DOMAIN}/u/{user['id']}"
+            url=f"https://{settings.DOMAIN}/u/{user['id']}/{mode}"
         )
         # Basic size
         if size=="basic":
