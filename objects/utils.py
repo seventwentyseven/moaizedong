@@ -87,7 +87,7 @@ async def formatStatus(username:str, last_seen:int) -> str:
 
     #* Player is not online
     if not player:
-        return "{} is 🔴 Offline, last seen {}.".format(
+        return "{} is Offline, last seen {}.".format(
             username, timeago.format(last_seen, datetime.datetime.utcnow())
         )
     #* Player is online
@@ -98,7 +98,7 @@ async def formatStatus(username:str, last_seen:int) -> str:
         if "NC" in mods:
             mods = mods.replace("DT", "")
 
-        return "{} is 🟢 Online at {} | {}".format(
+        return "{} is Online at {} | {}".format(
             player.name,
             config.SERVER_NAME_S,
             text.format(player.status.info_text, mods)
