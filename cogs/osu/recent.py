@@ -109,7 +109,7 @@ class Recent(commands.Cog):
             max_combo = f"{score['max_combo']}x"
 
             try:
-                ratio = f" ▸ **Ratio:** {round(score['n300']/score['nkatu'], 2)} **: 1**"
+                ratio = f" ▸ **Ratio:** {round(score['ngeki']/score['n300'], 3)} **: 1**"
             except ZeroDivisionError:
                 ratio = f" ▸ **Ratio:** 0 **: 1**"
         # Taiko
