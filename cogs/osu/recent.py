@@ -148,7 +148,7 @@ class Recent(commands.Cog):
         )
         embed.add_field(
             name="Map Info",
-            value=f"{map_stats}\n▸ **Stars** {round(score['diff'], 2)} ⭐ ▸ **BPM:** {score['bpm']} ▸ "
+            value=f"{map_stats}\n▸ **Stars** {round(score['diff'], 2)} ⭐ ▸ **BPM:** {int(round(score['bpm'], 0))} ▸ "
             f"**Length:** {score['total_length']}",
             inline=False
         )
