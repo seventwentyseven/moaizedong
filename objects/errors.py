@@ -70,9 +70,18 @@ class Errors:
         return embed
 
     def number_range(min:int, max:int) -> discord.Embed:
+        if min == None:
+            text=f"Number must be under {max}."
+        elif max == None:
+            text=f"Number must be over {min}."
+        elif min == None and max == None:
+            raise ValueError("min and max cannot be both None")
+        else:
+            text=f"Number must be between {min} and {max}."
+
         embed = discord.Embed(
             title="Error!",
-            description=f"Number must be between {min} and {max}.",
+            description=text,
             color=Colors.RED
         )
         embed.set_footer(
