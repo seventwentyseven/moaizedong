@@ -138,7 +138,11 @@ class Best(commands.Cog):
 
             #* Iterate over scores
             for i in range (5):
-                el:dict = scores[i]
+                #NOTE: Tempfix
+                try:
+                    el:dict = scores[i]
+                except IndexError:
+                    break
 
                 # Mania is specific gamemode :trolley:
                 if mode == 3:
