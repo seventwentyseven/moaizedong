@@ -134,3 +134,29 @@ def mods2str(mods:int=0, plus:bool=True) -> str:
         out = out.replace("DT", "")
 
     return out if plus else out[1:]
+
+def formatJudgements(mode:int, n300:int, n100:int, n50:int, nmiss:int, nkatu:int, ngeki:int) -> str:
+    """Format judgements. Example output: [232/10/0/1]"""
+
+    # Std 300/100/50/miss
+    if mode in (0,4,8):
+        o = f"[{n300}/{n100}/{n50}/{nmiss}]"
+    # Mania all
+    elif mode == 3:
+        o = f"[{ngeki}/{n300}/{nkatu}/{n100}/{n50}/{nmiss}]"
+    # Taiko 300/50/miss
+    elif mode in (1,5):
+        o = f"[{n300}/{n50}/{nmiss}]"
+    # Ctb n300/n100/nkatu/nmiss
+    elif mode in (2,6):
+        o = f"[{n300}/{n100}/{nkatu}/{nmiss}]"
+
+    return o
+
+def formatMaxCombo(mode:int, score_max_combo:int, map_max_combo:int) -> str:
+    """Format max combo."""
+    # Mania doesn't include map max combo
+    if mode == 3:
+        return f"{score_max_combo}"
+
+    return f"{score_max_combo}/{map_max_combo}"
