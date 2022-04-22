@@ -2,21 +2,19 @@ from __future__ import annotations
 
 import discord
 from discord.ext import commands
-from discord_slash import SlashCommand, SlashContext, cog_ext
+from discord_slash import SlashContext, cog_ext
 
 import datetime
 
 import moai.botconfig as config
 from moai.constants.slash_options import CommandOptions
-from moai.constants.colors import Colors
-from moai.constants.channels import Channels, Emojis
+from moai.constants.channels import Channels
 from moai.constants import variables
 from moai.objects.errors import Errors
 from moai.objects import utils
 
 import app.settings as settings
 import app.state
-from app.constants.privileges import Privileges
 
 class Recent(commands.Cog):
     def __init__(self, bot):

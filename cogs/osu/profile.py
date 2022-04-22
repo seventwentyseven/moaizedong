@@ -1,9 +1,8 @@
 from __future__ import annotations
 
-import datetime
 import discord
 from discord.ext import commands
-from discord_slash import SlashCommand, SlashContext, cog_ext
+from discord_slash import SlashContext, cog_ext
 
 import moai.botconfig as config
 from moai.constants.slash_options import CommandOptions
@@ -16,7 +15,6 @@ from moai.objects import utils
 import app.settings as settings
 import app.state
 from app.objects.player import Player
-from app.constants.privileges import Privileges
 
 class Profile(commands.Cog):
     def __init__(self, bot):
