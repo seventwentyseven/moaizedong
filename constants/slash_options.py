@@ -119,3 +119,18 @@ class CommandOptions:
             ]
         ),
     ]
+
+    RESTRICT = [
+        create_option(
+            name = "user",
+            description = "Enter username",
+            option_type = 3,
+            required = True,
+        ),
+        create_option(
+            name = "reason",
+            description = "Enter reason",
+            option_type = 3,
+            required = True,
+        ),
+    ]
