@@ -31,7 +31,6 @@ class Restricts(commands.Cog):
         description="Restrict user",
         options=CommandOptions.RESTRICT,
     )
-
     async def _restrict(self, ctx: SlashContext, user:str=None, reason:str=None):
         """Restrict user (Admin required)"""
 
@@ -122,6 +121,102 @@ class Restricts(commands.Cog):
         embed = discord.Embed(
             title="User restricted!",
             description=f"Successfully restricted `{po}`\n"
+                        f"Reason: `{reason}`",
+            color=Colors.GREEN,
+            timestamp=datetime.datetime.utcnow()
+        )
+        embed.set_footer(text=f"This action has been logged.")
+        await ctx.send(embed=embed)
+
+
+
+
+
+
+
+    @cog_ext.cog_slash(
+        name="unrestrict",
+        description="Unrestrict user",
+        options=CommandOptions.RESTRICT,
+    )
+    async def _unrestrict(self, ctx: SlashContext, user:str=None, reason:str=None):
+        """Unrestrict user (Admin required)"""
+
+        error = False
+        #* Permission checks
+        author = await app.state.services.database.fetch_one(
+            "SELECT id, priv FROM users WHERE discord_id=:d_id",
+            {"d_id": ctx.author.id}
+        )
+        if not author:
+            return await ctx.send(embed=Errors.notLinked())
+
+        #* Account is linked, convert to dict and check privileges
+        author = dict(author)
+        # Check for privileges
+        if not author["priv"] & 8192:
+            return await ctx.send(embed=Errors.privileges())
+
+        #* Get author object
+        ao = await app.state.sessions.players.from_cache_or_sql(id=author["id"])
+
+        #* Get user object
+        po = await app.state.sessions.players.from_cache_or_sql(name=user)
+        if not po:
+            return await ctx.send(embed=Errors.user_not_found(short=True))
+
+        #* Security checks
+        if ctx.channel.id != Channels.ADMIN_CHAT:
+            return await ctx.send(embed=Errors.AdminChat_only())
+
+        #* Other checks
+        if not po.restricted:
+            return await ctx.send(embed=Errors.default("This user is not restricted!"))
+
+
+        #* All checks passed
+        await po.add_privs(Privileges.NORMAL)
+
+        await app.state.services.database.execute(
+            "INSERT INTO logs "
+            "(`from`, `to`, `action`, `msg`, `time`) "
+            "VALUES (:from, :to, :action, :msg, NOW())",
+            {"from": ao.id, "to": po.id, "action": "unrestrict", "msg": reason},
+        )
+
+        if not po.online:
+            async with app.state.services.database.connection() as db_conn:
+                await po.stats_from_sql_full(db_conn)
+
+        for mode, stats in po.stats.items():
+            await app.state.services.redis.zadd(
+                f"bancho:leaderboard:{mode.value}",
+                {str(po.id): stats.pp},
+            )
+            await app.state.services.redis.zadd(
+                f"bancho:leaderboard:{mode.value}:{po.geoloc['country']['acronym']}",
+                {str(po.id): stats.pp},
+            )
+
+        if "restricted" in po.__dict__:
+            del po.restricted  # wipe cached_property
+
+        log_msg = f"{ao} unrestricted {po} for: {reason}."
+
+        log(log_msg, Ansi.LRED)
+
+        if webhook_url := settings.DISCORD_AUDIT_LOG_WEBHOOK:
+            webhook = Webhook(webhook_url, content=log_msg)
+            await webhook.post(app.state.services.http)
+
+        if po.online:
+            # log the user out if they're offline, this
+            # will simply relog them and refresh their app.state
+            po.logout()
+
+        embed = discord.Embed(
+            title="User unrestricted!",
+            description=f"Successfully unrestricted `{po}`\n"
                         f"Reason: `{reason}`",
             color=Colors.GREEN,
             timestamp=datetime.datetime.utcnow()
