@@ -33,7 +33,7 @@ async def get_user(ctx: commands.Context, user:str=None) -> dict:
             {"id": ctx.author.id}
         )
         if not user:
-            return {"error": True, 'embed': await Errors.user_not_found(self_exec=self_exec)}
+            return {"error": True, 'embed': Errors.user_not_found(self_exec=self_exec)}
         else:
             return {"user": dict(user), "self_exec": self_exec}
     # User was mentioned
@@ -48,7 +48,7 @@ async def get_user(ctx: commands.Context, user:str=None) -> dict:
             {"id": user}
         )
         if not user:
-            return {"error": True, 'embed': await Errors.user_not_found(self_exec=self_exec)}
+            return {"error": True, 'embed': Errors.user_not_found(self_exec=self_exec)}
         else:
             return {"user": dict(user), "self_exec": self_exec}
     # User arg is username (str)
@@ -60,7 +60,7 @@ async def get_user(ctx: commands.Context, user:str=None) -> dict:
             {"name": user}
         )
         if not user:
-            return {"error": True, 'embed': await Errors.user_not_found(self_exec=False)}
+            return {"error": True, 'embed': Errors.user_not_found(self_exec=False)}
         else:
             user = dict(user)
             if user['discord_id'] == ctx.author.id:
