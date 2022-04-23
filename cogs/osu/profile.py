@@ -27,7 +27,7 @@ class Profile(commands.Cog):
         description="Check user profile in specified mode.",
         options=CommandOptions.PROFILE
     )
-    async def _profile(self, ctx: SlashContext, user:str=None, mode:str=None, size:str="basic"):
+    async def profile(self, ctx: SlashContext, user:str=None, mode:str=None, size:str="basic"):
         """Get user profile in specified mode."""
 
         #* Get author Privileges
