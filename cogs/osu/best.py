@@ -26,7 +26,7 @@ class Best(commands.Cog):
         description="Check user best scores in specified mode.",
         options=CommandOptions.BEST
     )
-    async def _profile(self, ctx: SlashContext, user:str=None, mode:str=None,
+    async def best(self, ctx: SlashContext, user:str=None, mode:str=None,
         size:str="basic", over:int=None, page:int=None):
         """Get user profile in specified mode."""
 
