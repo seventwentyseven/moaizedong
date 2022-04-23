@@ -11,6 +11,18 @@ __all__ = ('Errors')
 class Errors:
     """Class representing errors of the bot."""
 
+    #* Default error
+    def default(text:str) -> discord.Embed:
+        embed = discord.Embed(
+            title="Error!",
+            description=text,
+            color=Colors.RED
+        )
+        embed.set_footer(
+            text=f"{SERVER_NAME_L}.xyz",
+            icon_url=ICON_LINK
+        )
+        return embed
     # Missing privileges error
     def privileges() -> discord.Embed:
         embed =  discord.Embed(
@@ -23,8 +35,14 @@ class Errors:
             icon_url=ICON_LINK
         )
 
-    def user_not_found(self_exec=False) -> discord.Embed:
-        if self_exec:
+    def user_not_found(self_exec:bool=False, short:bool=False) -> discord.Embed:
+        if short==True:
+            embed = discord.Embed(
+                title="Error!",
+                description=f"User not found.",
+                color=Colors.RED
+            )
+        elif self_exec==True:
             embed = discord.Embed(
                 title="Error!",
                 description=f"You don't have a {SERVER_NAME_S} account linked to your discord account yet.\n"
@@ -34,7 +52,7 @@ class Errors:
         else:
             embed = discord.Embed(
                 title="Error!",
-                description=f"User not found, maybe their account isn't linked?.",
+                description=f"User not found, maybe their account isn't linked?",
                 color=Colors.RED
             )
 
@@ -94,6 +112,20 @@ class Errors:
         embed = discord.Embed(
             title="Error!",
             description=f"`{arg_name}` argument must be an integer.",
+            color=Colors.RED
+        )
+        embed.set_footer(
+            text=f"{SERVER_NAME_L}.xyz",
+            icon_url=ICON_LINK
+        )
+        return embed
+
+    def notLinked() -> discord.Embed:
+        """If user account is not linked"""
+        embed = discord.Embed(
+            title="Error!",
+            description=f"Your account is not linked to {SERVER_NAME_S} yet.\n"
+                         "You can do that on our website in settings page.",
             color=Colors.RED
         )
         embed.set_footer(
