@@ -102,7 +102,7 @@ class Recent(commands.Cog):
 
         # Mania
         elif int(mode) == 3:
-            judgements = f"[{score['nkatu']}/{score['n300']}/{score['ngeki']}/{score['n100']}/{score['n50']}/{score['nmiss']}]"
+            judgements = f"[{score['ngeki']}/{score['n300']}/{score['nkatu']}/{score['n100']}/{score['n50']}/{score['nmiss']}]"
             map_stats  = f"▸ **Keys:** {int(score['cs'])} ▸ **HP:** {score['hp']} ▸ **OD:** {score['od']}"
             max_combo = f"{score['max_combo']}x"
 
